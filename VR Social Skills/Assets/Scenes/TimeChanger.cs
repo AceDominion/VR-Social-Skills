@@ -31,17 +31,17 @@ public class TimeChanger : MonoBehaviour
         {
             if (time < 87)
             {
-                text.text = "To Arrive at the classroom please enter the second door on the left";
+                text.text = "Head on up through the school, entering the first door on your left.";
             }
 
             if (time < 45)
             {
-                text.text = "Time is running out, please enter the second door on the left";
+                text.text = "You're looking for the classroom. It's in through the doors on the left.";
             }
 
             if (time < 0)
             {
-                text.text = "Time's up, game over";
+                text.text = "Screen fades to black...";
             }
         }
 
@@ -49,23 +49,23 @@ public class TimeChanger : MonoBehaviour
         {
             if (time < 90)
             {
-                text.text = "Down the corridor, around the corner and first door on the left";
+                text.text = "Great! Head on down through the hall, you're looking for room 305.";
             }
 
             if (time < 45)
             {
-                text.text = "Time is running out, pleace go down the corridor around the corner and first door on the left";
+                text.text = "Room 305 is in the main hall - there are two people standing outside the room.";
             }
 
             if (time < 0)
             {
-                text.text = "Time's up, game over";
+                text.text = "Screen fades to black...";
             }
         }
 
         if (path == 2)
         {
-            text.text = "This is the classroom";
+            text.text = "Great! You found the classroom. Go say hi to your classmates Tom and Mia.";
         }
     }
 

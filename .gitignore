@@ -34,3 +34,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+VR Social Skills/Assets/RP_Free_RiggedModels/rp_alison_rigged_001/Materials/rp_alison_rigged_001_norm.TGA
+VR Social Skills/Assets/RP_Free_RiggedModels/rp_alison_rigged_001/Materials/rp_alison_rigged_001_dif_gloss.tga
+VR Social Skills/Assets/RP_Free_RiggedModels/rp_eric_rigged_001/Materials/rp_eric_rigged_001_norm.TGA
+VR Social Skills/Assets/RP_Free_RiggedModels/rp_eric_rigged_001/Materials/rp_eric_rigged_001_dif_gloss.tga
