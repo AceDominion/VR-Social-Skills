@@ -67,6 +67,16 @@ public class TimeChanger : MonoBehaviour
         {
             text.text = "Great! You found the classroom. Go say hi to your classmates Tom and Mia.";
         }
+
+        if (path == 3)
+        {
+            text.text = "well done";
+
+            if (time < 0)
+            {
+                Application.Quit();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -89,6 +99,12 @@ public class TimeChanger : MonoBehaviour
         if (other.gameObject.tag == "RD2")
         {
             path = 2;
+        }
+
+        if (other.gameObject.tag == "Conbox")
+        {
+            path = 3;
+            time = 5f;
         }
     }
 }
