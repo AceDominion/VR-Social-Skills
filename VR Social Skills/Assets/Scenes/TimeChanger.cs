@@ -70,7 +70,7 @@ public class TimeChanger : MonoBehaviour
 
         if (path == 3)
         {
-            text.text = "well done";
+            text.text = "Well done!";
 
             if (time < 0)
             {
