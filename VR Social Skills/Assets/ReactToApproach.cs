@@ -26,6 +26,7 @@ public class ReactToApproach : MonoBehaviour
         {
             //Mia.transform.LookAt(Player.transform);
             RotateTowards(Player.transform, Mia.transform, 2.0f);
+            RotateTowards(Player.transform, Tom.transform, 2.0f);
         }
     }
 
