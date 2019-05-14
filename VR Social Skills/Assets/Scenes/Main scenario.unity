@@ -12867,7 +12867,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771262cf6ddbb7d4f9698e7bdc3d0afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MouseLook:
+    XSensitivity: 2
+    YSensitivity: 2
+    clampVerticalRotation: 1
+    MinimumX: -90
+    MaximumX: 90
+    smooth: 0
+    smoothTime: 5
+    lockCursor: 1
   rig: {fileID: 829885020}
+  player: {fileID: 829885024}
+  thrust: 5
+  count: 0
+  m_Camera: {fileID: 551797719}
 --- !u!114 &829885023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23103,6 +23116,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ViveRig
       objectReference: {fileID: 0}
+    - target: {fileID: 197116, guid: cbfd31aaac017204885fcc03f0579a1a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 498762, guid: cbfd31aaac017204885fcc03f0579a1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.56729126
@@ -26039,7 +26056,7 @@ MonoBehaviour:
   pivot: {fileID: 144844628}
   fadeDuration: 0.3
   m_reticleMaterial: {fileID: 0}
-  teleportButton: 1
+  teleportButton: 0
 --- !u!4 &1693921876
 Transform:
   m_ObjectHideFlags: 0

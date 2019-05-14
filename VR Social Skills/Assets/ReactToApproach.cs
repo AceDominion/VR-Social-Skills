@@ -8,7 +8,7 @@ public class ReactToApproach : MonoBehaviour
     public GameObject Player;
     public GameObject Mia;
     public GameObject Tom;
-   
+
     public bool Aware; // Once NPC is aware, they constantly follow the player
 
     //public Collider Conbox;
