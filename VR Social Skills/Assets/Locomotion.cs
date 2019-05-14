@@ -29,8 +29,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             //m_MouseLook.LookRotation(transform, m_Camera.transform);
 
-            rig.transform.rotation = new Quaternion(rig.transform.rotation.x, m_Camera.transform.rotation.y, rig.transform.rotation.z, rig.transform.rotation.w);
-            m_Camera.transform.rotation = new Quaternion(m_Camera.transform.rotation.x, 0, m_Camera.transform.rotation.z, m_Camera.transform.rotation.w);
+            //rig.transform.rotation = new Quaternion(rig.transform.rotation.x, m_Camera.transform.rotation.y, rig.transform.rotation.z, rig.transform.rotation.w);
+            //m_Camera.transform.rotation = new Quaternion(m_Camera.transform.rotation.x, 0, m_Camera.transform.rotation.z, m_Camera.transform.rotation.w);
 
             if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.DPadUp))
             {
