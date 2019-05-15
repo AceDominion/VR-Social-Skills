@@ -29,7 +29,7 @@ public class TimeChanger : MonoBehaviour
 
         if (path == 0 && timeTwo < 0)
         {
-            if (time < 87)
+            if (time < 89)
             {
                 text.text = "Head on up through the school, entering the first door on your left.";
             }
