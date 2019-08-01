@@ -8,37 +8,36 @@ namespace UnityStandardAssets.Characters.FirstPerson
 {
     public class Locomotion : MonoBehaviour
     {
-        [SerializeField] private MouseLook m_MouseLook;
 
         public GameObject rig;
-        public Rigidbody player;
         public float thrust = 0.5f;
         public int count;
+        public float xF = 0;
+        public float zF = 0;
+        public float zRo;
+        public float xRo;
+        public float Track;
+        public float TrackTwo;
 
         public Camera m_Camera;
 
         // Start is called before the first frame update
         void Start()
         {
-            player = GetComponent<Rigidbody>();
+
         }
 
         // Update is called once per frame
         void Update()
         {
 
-            //m_MouseLook.LookRotation(transform, m_Camera.transform);
-
-            //rig.transform.rotation = new Quaternion(rig.transform.rotation.x, m_Camera.transform.rotation.y, rig.transform.rotation.z, rig.transform.rotation.w);
-            //m_Camera.transform.rotation = new Quaternion(m_Camera.transform.rotation.x, 0, m_Camera.transform.rotation.z, m_Camera.transform.rotation.w);
 
             if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.DPadUp))
             {
                 Debug.Log("Press DpadUp detected");
                 count++;
-                rig.transform.position = new Vector3(rig.transform.position.x, rig.transform.position.y, rig.transform.position.z + thrust);
-                //player.AddForce(transform.forward * thrust);
-                Vector2 xInput = ViveInput.GetPadPressAxis(HandRole.RightHand);
+
+                //Vector2 xInput = ViveInput.GetPadPressAxis(HandRole.RightHand);
 
             }
 
@@ -57,8 +56,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Debug.Log("Press DpadRight detected");
             }
 
+            Track = Mathf.Abs(m_Camera.transform.rotation.y);
+
+            zRo = Mathf.Cos(Mathf.Abs(m_Camera.transform.rotation.y) + 180);
+            xRo = Mathf.Sin(Mathf.Abs(m_Camera.transform.rotation.y) + 270);
 
 
+            zF = Mathf.Abs(thrust) * Mathf.Cos(Mathf.Abs(m_Camera.transform.rotation.y));
+            xF = Mathf.Abs(thrust) * Mathf.Sin(Mathf.Abs(m_Camera.transform.rotation.y) + 90);
+
+            rig.gameObject.GetComponent<Rigidbody>().AddForce(xF, 0, zF);
 
         }
     }
