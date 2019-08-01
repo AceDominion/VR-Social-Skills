@@ -12831,6 +12831,8 @@ MonoBehaviour:
   zF: 0
   zRo: 0
   xRo: 0
+  Track: 0
+  TrackTwo: 0
   m_Camera: {fileID: 551797719}
 --- !u!114 &829885023
 MonoBehaviour:
