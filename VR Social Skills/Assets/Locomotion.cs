@@ -10,7 +10,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     {
 
         public GameObject rig;
-        public float thrust = 0.5f;
+        public float thrust = 5f;
         public int count;
         public float xF = 0;
         public float zF = 0;
@@ -31,10 +31,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         void Update()
         {
 
+            zF = Mathf.Abs(thrust) * Mathf.Cos(Mathf.Abs(m_Camera.transform.eulerAngles.y));
+            xF = Mathf.Abs(thrust) * Mathf.Sin(Mathf.Abs(m_Camera.transform.eulerAngles.y));
+            rig.gameObject.GetComponent<Rigidbody>().AddForce(xF, 0, zF);
+
 
             if (ViveInput.GetPress(HandRole.RightHand, ControllerButton.DPadUp))
             {
                 Debug.Log("Press DpadUp detected");
+                rig.gameObject.GetComponent<Rigidbody>().AddForce(xF, 0, zF);
                 count++;
 
                 //Vector2 xInput = ViveInput.GetPadPressAxis(HandRole.RightHand);
@@ -55,17 +60,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 Debug.Log("Press DpadRight detected");
             }
-
-            Track = Mathf.Abs(m_Camera.transform.rotation.y);
-
-            zRo = Mathf.Cos(Mathf.Abs(m_Camera.transform.rotation.y) + 180);
-            xRo = Mathf.Sin(Mathf.Abs(m_Camera.transform.rotation.y) + 270);
-
-
-            zF = Mathf.Abs(thrust) * Mathf.Cos(Mathf.Abs(m_Camera.transform.rotation.y));
-            xF = Mathf.Abs(thrust) * Mathf.Sin(Mathf.Abs(m_Camera.transform.rotation.y) + 90);
-
-            rig.gameObject.GetComponent<Rigidbody>().AddForce(xF, 0, zF);
 
         }
     }
