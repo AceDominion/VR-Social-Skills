@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.vrsocialskills.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\pacem\\Documents\\GitHub\\VR-Social-Skills\\VR Social Skills\\actions.json",
+      "action_manifest_path": "C:\\Users\\haydenj2\\Documents\\GitHub\\VR-Social-Skills\\VR Social Skills\\actions.json",
       "strings": {
         "en_us": {
           "name": "VR Social Skills [Testing]"
