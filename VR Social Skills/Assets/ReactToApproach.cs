@@ -11,7 +11,7 @@ public class ReactToApproach : MonoBehaviour
 
     public bool Aware; // Once NPC is aware, they constantly follow the player
 
-    //public Collider Conbox;
+    public Collider Conbox;
 
     // Start is called before the first frame update
     void Start()
