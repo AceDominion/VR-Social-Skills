@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class scenarioScript : MonoBehaviour
 {
@@ -12,6 +14,12 @@ public class scenarioScript : MonoBehaviour
     public float leeway = 0; // saftey time given so user doesnt run out of time from breaks in continuous talking
     public string words; // what the user said
     public int step = 0; // what part of the script the conversation is up to
+    public GameObject Player;
+    public GameObject Mia;
+    public GameObject Tom;
+
+    public Image black;
+    public Animator anim;
 
     public Collider Conbox;
 
@@ -43,6 +51,10 @@ public class scenarioScript : MonoBehaviour
 
         if (aware == true)
         {
+            RotateTowards(Player.transform, Mia.transform, 1.0f);
+            RotateTowards(Player.transform, Tom.transform, 1.0f);
+
+
             if (option == 0)
             {
 
@@ -76,7 +88,7 @@ public class scenarioScript : MonoBehaviour
 
                 if (time <=0 || talking >= 20)
                 {
-                    //fade to black
+                    Fading();
                 }
 
                 response = false;
@@ -114,7 +126,7 @@ public class scenarioScript : MonoBehaviour
 
                 if (time <= 0)
                 {
-                    //fade to black
+                    Fading();
                 }
             }
         }
@@ -126,5 +138,18 @@ public class scenarioScript : MonoBehaviour
         {
             aware = true;
         }
+    }
+
+    public static void RotateTowards(Transform player, Transform npc, float speed = 1.0f)
+    {
+        Vector3 direction = new Vector3(player.position.x - npc.position.x, 0.0f, player.position.z - npc.position.z).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        npc.rotation = Quaternion.Slerp(npc.rotation, lookRotation, Time.deltaTime * speed);
+    }
+
+    IEnumerator Fading()
+    {
+        anim.SetBool("FadeOut", true);
+        return null;
     }
 }
