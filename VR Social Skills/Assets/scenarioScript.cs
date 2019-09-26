@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Windows.Speech;
+using System.Linq;
 
 public class scenarioScript : MonoBehaviour
 {
@@ -23,12 +25,62 @@ public class scenarioScript : MonoBehaviour
 
     public Collider Conbox;
 
+
+    KeywordRecognizer KeywordRecognizer;
+    Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
+
     // Start is called before the first frame update
     void Start()
     {
         aware = false;
         response = false;
         step = 0;
+
+        keywords.Add("Hello", () =>
+        {
+            response = true;
+            words = "Hello";
+        });
+
+        keywords.Add("Hi", () =>
+        {
+            response = true;
+            words = "Hi";
+        });
+
+        keywords.Add("Hey", () =>
+        {
+            response = true;
+            words = "Hey";
+        });
+
+        keywords.Add("How are you", () =>
+        {
+            response = true;
+            words = "How are you";
+        });
+
+        keywords.Add("How are you going", () =>
+        {
+            response = true;
+            words = "How are you going";
+        });
+
+        keywords.Add("How you going", () =>
+        {
+            response = true;
+            words = "How you going";
+        });
+
+        keywords.Add("How's things", () =>
+        {
+            response = true;
+            words = "How's things";
+        });
+
+        KeywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
+        KeywordRecognizer.OnPhraseRecognized += KeywordRecongnizerOnPhraseRecongnized;
+        KeywordRecognizer.Start();
     }
 
     // Update is called once per frame
@@ -41,13 +93,6 @@ public class scenarioScript : MonoBehaviour
         }
 
         leeway -= Time.deltaTime;
-
-
-       /* if (user.talking)
-        {
-            response = true;
-        } */
-
 
         if (aware == true)
         {
@@ -69,7 +114,7 @@ public class scenarioScript : MonoBehaviour
                 {
                     if (step == 1)
                     {
-                        if (words == "Hello" || words == "Hi" || words == "G Day" || words == "Hey")
+                        if (words == "Hello" || words == "Hi" || words == "Hey")
                         {
                             //say.HowAreYou
                             response = false;
@@ -106,7 +151,7 @@ public class scenarioScript : MonoBehaviour
 
                 if (step == 1)
                 {
-                    if (words == "Hello" || words == "Hi" || words == "G Day" || words == "Hey")
+                    if (words == "Hello" || words == "Hi" || words == "Hey")
                     {
                         //say.HeyGoodToSeeYoo
                         response = false;
@@ -117,7 +162,7 @@ public class scenarioScript : MonoBehaviour
 
                 if (step == 2)
                 {
-                    if (words == "How are you" || words == "How are you going" || words == "How you going" || words == "how's things")
+                    if (words == "How are you" || words == "How are you going" || words == "How you going" || words == "How's things")
                     {
                         //say.PrettyGoodHowAreYou
                         time = 3;
@@ -140,7 +185,7 @@ public class scenarioScript : MonoBehaviour
         }
     }
 
-    public static void RotateTowards(Transform player, Transform npc, float speed = 1.0f)
+    public static void RotateTowards(Transform player, Transform npc, float speed = 0.75f)
     {
         Vector3 direction = new Vector3(player.position.x - npc.position.x, 0.0f, player.position.z - npc.position.z).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
@@ -151,5 +196,15 @@ public class scenarioScript : MonoBehaviour
     {
         anim.SetBool("FadeOut", true);
         return null;
+    }
+
+    void KeywordRecongnizerOnPhraseRecongnized(PhraseRecognizedEventArgs args)
+    {
+        System.Action keywordAction;
+
+        if (keywords.TryGetValue(args.text, out keywordAction))
+        {
+            keywordAction.Invoke();
+        }
     }
 }
