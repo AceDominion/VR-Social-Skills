@@ -38,42 +38,49 @@ public class scenarioScript : MonoBehaviour
 
         keywords.Add("Hello", () =>
         {
+            aware = true;
             response = true;
             words = "Hello";
         });
 
         keywords.Add("Hi", () =>
         {
+            aware = true;
             response = true;
             words = "Hi";
         });
 
         keywords.Add("Hey", () =>
         {
+            aware = true;
             response = true;
             words = "Hey";
         });
 
         keywords.Add("How are you", () =>
         {
+            aware = true;
             response = true;
             words = "How are you";
         });
 
         keywords.Add("How are you going", () =>
         {
+            aware = true;
             response = true;
             words = "How are you going";
         });
 
         keywords.Add("How you going", () =>
         {
+            aware = true;
             response = true;
             words = "How you going";
         });
 
         keywords.Add("How's things", () =>
         {
+            aware = true;
             response = true;
             words = "How's things";
         });
@@ -181,7 +188,7 @@ public class scenarioScript : MonoBehaviour
     {
         if (Conbox.tag == "Conbox")
         {
-            aware = true;
+            //aware = true; moved this to when the player speaks, so that NPCs become "aware" only upon the player speaking.
         }
     }
 
