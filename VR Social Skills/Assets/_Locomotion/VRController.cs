@@ -8,9 +8,9 @@ public class VRController : MonoBehaviour
     public float m_Gravity = 30.0f;
     public float m_Sensitivity = 0.1f;
     public float m_MaxSpeed = 1.0f;
-    public float m_RotateIncrement = 90;
+    public float m_RotateIncrement = 90; // Degrees to snap rotate by.
 
-    public SteamVR_Action_Boolean m_RotatePress = null;
+    public SteamVR_Action_Boolean m_RotatePress = null; // Action for snap rotating.
     public SteamVR_Action_Boolean m_MovePress = null;
     public SteamVR_Action_Vector2 m_MoveValue = null;
     
@@ -60,7 +60,7 @@ public class VRController : MonoBehaviour
     private void CalculateMovement()
     {
         // Figure out movement orientation
-        Vector3 orientationEuler = new Vector3(0, m_Head.eulerAngles.y, 0);
+        Vector3 orientationEuler = new Vector3(0, m_Head.eulerAngles.y, 0); // Keep player in same place in the world
         Quaternion orientation = Quaternion.Euler(orientationEuler);
         Vector3 movement = Vector3.zero;
 
@@ -80,7 +80,7 @@ public class VRController : MonoBehaviour
         }
 
         // Gravity
-        movement.y -= m_Gravity * Time.deltaTime;
+        movement.y -= m_Gravity * Time.deltaTime; // Applies gravity as an acceleration
 
         // Apply
         m_CharacterController.Move(movement * Time.deltaTime);
