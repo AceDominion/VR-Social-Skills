@@ -19,6 +19,10 @@ public class scenarioScript : MonoBehaviour
     public GameObject Player;
     public GameObject Mia;
     public GameObject Tom;
+    public AudioClip hello; // Audii clip that is referenced by the audiosource.
+    public AudioSource helloref; // Audio source reference.
+    public AudioClip hru; // Audii clip that is referenced by the audiosource.
+    public AudioSource hruref; // Audio source reference.
 
     public Image black;
     public Animator anim;
@@ -35,6 +39,9 @@ public class scenarioScript : MonoBehaviour
         aware = false;
         response = false;
         step = 0;
+
+        helloref.clip = hello; // Sets the reference to refer to the clip.
+        hruref.clip = hru;
 
         keywords.Add("Hello", () =>
         {
@@ -112,7 +119,8 @@ public class scenarioScript : MonoBehaviour
 
                 if (step == 0)
                 {
-                    //say.Hello
+                    //say hello
+                    helloref.Play(); // Makes the audio source play, which refers to the hello clip.
                     time = 15;
                     step++;
                 }
@@ -124,6 +132,7 @@ public class scenarioScript : MonoBehaviour
                         if (words == "Hello" || words == "Hi" || words == "Hey")
                         {
                             //say.HowAreYou
+                            hruref.Play();
                             response = false;
                             time = 15;
                             step++;
