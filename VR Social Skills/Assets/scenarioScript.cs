@@ -100,103 +100,102 @@ public class scenarioScript : MonoBehaviour
     void Update()
     {
 
-        if (leeway < 0)
+        if (leeway < 0) // while leeway is greater then 0, fade to black count down time wont tick
         {
-            time -= Time.deltaTime;
+            time -= Time.deltaTime; // fade to black time counting down
         }
 
-        if (leeway > 0)
+        if (leeway > 0) // while leeway is greater then 0, talking time will increase until 20 at which point screen fades to black
         {
-            talking += Time.deltaTime;
+            talking += Time.deltaTime; // talking time counting up
         }
 
-        leeway -= Time.deltaTime;
+        leeway -= Time.deltaTime; // amount of pause between talking counting down
 
         if (aware == true)
         {
-            RotateTowards(Player.transform, Mia.transform, 1.0f);
-            RotateTowards(Player.transform, Tom.transform, 1.0f);
+            RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
+            RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
 
 
-            if (option == 0)
+            if (option == 0) // first potential way things play out according to script
             {
 
-                if (step == 0)
+                if (step == 0) // first thing that happens in the first script option
                 {
                     helloref.Play(); // Makes the audio source play, which refers to the hello clip.
-                    time = 15;
-                    step++;
-                    response = false;
+                    time = 15; // 15 seconds until fade to black
+                    step++; // move on to the next part of this option
                 }
 
-                if (response == true)
+                if (response == true) // if player is speaking
                 {
-                    if (step == 1)
+                    if (step == 1) // second thing that happens in first script option
                     {
-                        if (words == "Hello" || words == "Hi" || words == "Hey")
+                        if (words == "Hello" || words == "Hi" || words == "Hey") // player needs to say one of these words progress
                         {
-                            hruref.Play();
-                            response = false;
-                            time = 15;
-                            step++;
+                            hruref.Play(); // actor response 
+                            response = false; // sets it so player has to speak again to begin next part
+                            time = 15; // 15 seconds until fade to black
+                            step++; // move on to the next part of this option
                         }
                     }
 
-                    if (step == 2)
+                    if (step == 2) // third thing that happens in the first script option
                     {
-                        leeway = 1.5f;
+                        leeway = 1.5f; // amount of pause allowed for when the player has to continusly talk for 20 seconds
                     }
 
                 }
 
-                if (time <=0 || talking >= 20)
+                if (time <=0 || talking >= 20) // if count down time reachs 0 or if the player has talked for 20 seconds
                 {
-                    Fading();
+                    Fading(); // fade to black
                 }
 
-                response = false;
+                response = false; // sets it so player has to speak again in order to be considered talking
             }
 
 
-            if (option == 1)
+            if (option == 1) // second potential way things play out according to script
             {
 
-                if (step > 1)
+                if (step > 1) // as long as the player has spoken once then the actors will turn towards them
                 {
-                    RotateTowards(Player.transform, Mia.transform, 1.0f);
-                    RotateTowards(Player.transform, Tom.transform, 1.0f);
+                    RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
+                    RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
                 }
 
-                if (step == 0)
+                if (step == 0) // first part of the second script option 
                 {
-                    time = 15;
-                    step++;
+                    time = 15; // time given to say hello before fade to black
+                    step++; // move on to the next step
                 }
 
-                if (step == 1)
+                if (step == 1) // second part of the second script option
                 {
-                    if (words == "Hello" || words == "Hi" || words == "Hey")
+                    if (words == "Hello" || words == "Hi" || words == "Hey") // player needs to say one of these words to progress
                     {
-                        helloref.Play();
+                        helloref.Play(); 
                         //say.HeyGoodToSeeYoo
-                        response = false;
-                        time = 15;
-                        step++;
+                        response = false; // sets it so player has to speak again in order to be considered talking
+                        time = 15; // time until fade to black
+                        step++; // move on to the next step
                     }
                 }
 
-                if (step == 2)
+                if (step == 2) // third part of the second script option
                 {
-                    if (words == "How are you" || words == "How are you going" || words == "How you going" || words == "How's things")
+                    if (words == "How are you" || words == "How are you going" || words == "How you going" || words == "How's things") // player needs to say one of these to progress
                     {
                         //say.PrettyGoodHowAreYou
-                        time = 3;
+                        time = 3; // time until fade to black
                     }
                 }
 
-                if (time <= 0)
+                if (time <= 0) // if time has run out
                 {
-                    Fading();
+                    Fading(); // fade to black
                 }
             }
         }
