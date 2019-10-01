@@ -24,6 +24,8 @@ public class scenarioScript : MonoBehaviour
     public AudioSource helloref; // Audio source reference.
     public AudioClip hru; // Audii clip that is referenced by the audiosource.
     public AudioSource hruref; // Audio source reference.
+    public AudioClip fine; // "im fine thanks"
+    public AudioSource fineref;
 
     public Image black;
     public Animator anim;
@@ -44,6 +46,7 @@ public class scenarioScript : MonoBehaviour
 
         helloref.clip = hello; // Sets the reference to refer to the clip.
         hruref.clip = hru;
+        fineref.clip = fine;
 
         keywords.Add("Hello", () =>
         {
@@ -91,6 +94,36 @@ public class scenarioScript : MonoBehaviour
             words = "How's things";
         });
 
+        keywords.Add("Good", () =>
+        {
+            response = true;
+            words = "Good";
+        });
+
+        keywords.Add("Fine", () =>
+        {
+            response = true;
+            words = "Fine";
+        });
+
+        keywords.Add("Not bad", () =>
+        {
+            response = true;
+            words = "Not bad";
+        });
+
+        keywords.Add("You", () =>
+        {
+            response = true;
+            words = "You";
+        });
+
+        keywords.Add("Yourself", () =>
+        {
+            response = true;
+            words = "Yourself";
+        });
+
         KeywordRecognizer = new KeywordRecognizer(keywords.Keys.ToArray());
         KeywordRecognizer.OnPhraseRecognized += KeywordRecongnizerOnPhraseRecongnized;
         KeywordRecognizer.Start();
@@ -134,7 +167,7 @@ public class scenarioScript : MonoBehaviour
                     {
                         if (words == "Hello" || words == "Hi" || words == "Hey") // player needs to say one of these words progress
                         {
-                            hruref.Play(); // actor response 
+                            hruref.Play(); // actor response: "how are you"
                             response = false; // sets it so player has to speak again to begin next part
                             time = 15; // 15 seconds until fade to black
                             step++; // move on to the next part of this option
@@ -144,6 +177,15 @@ public class scenarioScript : MonoBehaviour
                     if (step == 2) // third thing that happens in the first script option
                     {
                         leeway = 1.5f; // amount of pause allowed for when the player has to continusly talk for 20 seconds
+                        if (words == "Good" || words == "Fine" || words == "Not bad" || words == "You" || words == "Yourself") // player needs to say one of these words progress
+                        {
+                            fineref.Play(); //actor response: "im fine thanks"
+                            response = false;
+                            time = 15;
+                            step++;
+                            // here we could also set a boolean "complete = true" and check for it in update(), then when true just end the scene.
+
+                        }
                     }
 
                 }
