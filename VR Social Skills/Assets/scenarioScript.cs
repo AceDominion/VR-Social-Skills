@@ -16,6 +16,7 @@ public class scenarioScript : MonoBehaviour
     public float leeway = 0; // saftey time given so user doesnt run out of time from breaks in continuous talking
     public string words; // what the user said
     public int step = 0; // what part of the script the conversation is up to
+    public bool InRange;
     public GameObject Player;
     public GameObject Mia;
     public GameObject Tom;
@@ -38,6 +39,7 @@ public class scenarioScript : MonoBehaviour
     {
         aware = false;
         response = false;
+        InRange = false;
         step = 0;
 
         helloref.clip = hello; // Sets the reference to refer to the clip.
@@ -45,49 +47,46 @@ public class scenarioScript : MonoBehaviour
 
         keywords.Add("Hello", () =>
         {
-            aware = true;
+            /*if (InRange == true)
+            {
+                aware = true;
+            }*/
             response = true;
             words = "Hello";
         });
 
         keywords.Add("Hi", () =>
         {
-            aware = true;
             response = true;
             words = "Hi";
         });
 
         keywords.Add("Hey", () =>
         {
-            aware = true;
             response = true;
             words = "Hey";
         });
 
         keywords.Add("How are you", () =>
         {
-            aware = true;
             response = true;
             words = "How are you";
         });
 
         keywords.Add("How are you going", () =>
         {
-            aware = true;
             response = true;
             words = "How are you going";
         });
 
         keywords.Add("How you going", () =>
         {
-            aware = true;
             response = true;
             words = "How you going";
         });
 
         keywords.Add("How's things", () =>
         {
-            aware = true;
             response = true;
             words = "How's things";
         });
@@ -106,6 +105,11 @@ public class scenarioScript : MonoBehaviour
             time -= Time.deltaTime;
         }
 
+        if (leeway > 0)
+        {
+            talking += Time.deltaTime;
+        }
+
         leeway -= Time.deltaTime;
 
         if (aware == true)
@@ -119,10 +123,10 @@ public class scenarioScript : MonoBehaviour
 
                 if (step == 0)
                 {
-                    //say hello
                     helloref.Play(); // Makes the audio source play, which refers to the hello clip.
                     time = 15;
                     step++;
+                    response = false;
                 }
 
                 if (response == true)
@@ -131,7 +135,6 @@ public class scenarioScript : MonoBehaviour
                     {
                         if (words == "Hello" || words == "Hi" || words == "Hey")
                         {
-                            //say.HowAreYou
                             hruref.Play();
                             response = false;
                             time = 15;
@@ -141,7 +144,6 @@ public class scenarioScript : MonoBehaviour
 
                     if (step == 2)
                     {
-                        talking += Time.deltaTime;
                         leeway = 1.5f;
                     }
 
@@ -159,6 +161,12 @@ public class scenarioScript : MonoBehaviour
             if (option == 1)
             {
 
+                if (step > 1)
+                {
+                    RotateTowards(Player.transform, Mia.transform, 1.0f);
+                    RotateTowards(Player.transform, Tom.transform, 1.0f);
+                }
+
                 if (step == 0)
                 {
                     time = 15;
@@ -169,6 +177,7 @@ public class scenarioScript : MonoBehaviour
                 {
                     if (words == "Hello" || words == "Hi" || words == "Hey")
                     {
+                        helloref.Play();
                         //say.HeyGoodToSeeYoo
                         response = false;
                         time = 15;
@@ -197,7 +206,9 @@ public class scenarioScript : MonoBehaviour
     {
         if (Conbox.tag == "Conbox")
         {
-            //aware = true; moved this to when the player speaks, so that NPCs become "aware" only upon the player speaking.
+            InRange = true;
+            aware = true;
+            //moved this to when the player speaks, so that NPCs become "aware" only upon the player speaking.
         }
     }
 
