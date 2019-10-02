@@ -38,9 +38,9 @@ public class VRController : MonoBehaviour
             //possibly add more logic to restrict scenario steps
             
         }
-        else if (MenuButtonScripts.Scenario == 2) // If the user hit load scene two (need to figure out how to add another button to menu.
+        else if (MenuButtonScripts.Scenario == 2) // If the user hit load scene two (Scenario variable is modified in MenuButtonScripts.cs, it's a static variable).
         {
-           // set player transform to inside
+            player.transform.SetPositionAndRotation(new Vector3(-9.2f, 6.3f, -8.59f), new Quaternion(0, 0, 0, 0));
         }
         m_CameraRig = SteamVR_Render.Top().origin;
         m_Head = SteamVR_Render.Top().head;

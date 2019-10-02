@@ -147,12 +147,31 @@ public class scenarioScript : MonoBehaviour
 
         if (aware == true)
         {
-            RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
-            RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
 
-
-            if (option == 0) // first potential way things play out according to script
+            if (MenuButtonScripts.Scenario == 1)
             {
+                if (step == 0) // This is necessary to stop the below fragment running every frame.
+                {
+                    if (words == "Hello" || words == "Hi" || words == "Hey") // player needs to say one of these words progress
+                    {
+
+                        RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
+                        RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
+                        helloref.Play();
+
+                        time = 15; // 15 seconds until fade to black
+                        step++; // move on to the next part of this option
+                                //Fading();
+
+                    }
+                }
+            }
+
+
+            if (MenuButtonScripts.Scenario == 2) // first potential way things play out according to script
+            {
+                RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
+                RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
 
                 if (step == 0) // first thing that happens in the first script option
                 {
@@ -196,49 +215,6 @@ public class scenarioScript : MonoBehaviour
                 }
 
                 response = false; // sets it so player has to speak again in order to be considered talking
-            }
-
-
-            if (option == 1) // second potential way things play out according to script
-            {
-
-                if (step > 1) // as long as the player has spoken once then the actors will turn towards them
-                {
-                    RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
-                    RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
-                }
-
-                if (step == 0) // first part of the second script option 
-                {
-                    time = 15; // time given to say hello before fade to black
-                    step++; // move on to the next step
-                }
-
-                if (step == 1) // second part of the second script option
-                {
-                    if (words == "Hello" || words == "Hi" || words == "Hey") // player needs to say one of these words to progress
-                    {
-                        helloref.Play(); 
-                        //say.HeyGoodToSeeYoo
-                        response = false; // sets it so player has to speak again in order to be considered talking
-                        time = 15; // time until fade to black
-                        step++; // move on to the next step
-                    }
-                }
-
-                if (step == 2) // third part of the second script option
-                {
-                    if (words == "How are you" || words == "How are you going" || words == "How you going" || words == "How's things") // player needs to say one of these to progress
-                    {
-                        //say.PrettyGoodHowAreYou
-                        time = 3; // time until fade to black
-                    }
-                }
-
-                if (time <= 0) // if time has run out
-                {
-                    Fading(); // fade to black
-                }
             }
         }
     }
