@@ -26,6 +26,7 @@ public class scenarioScript : MonoBehaviour
     public AudioSource hruref; // Audio source reference.
     public AudioClip fine; // "im fine thanks"
     public AudioSource fineref;
+    public bool rotating;
 
     public Image black;
     public Animator anim;
@@ -42,6 +43,7 @@ public class scenarioScript : MonoBehaviour
         aware = false;
         response = false;
         InRange = false;
+        rotating = false;
         step = 0;
 
         helloref.clip = hello; // Sets the reference to refer to the clip.
@@ -158,12 +160,17 @@ public class scenarioScript : MonoBehaviour
                         RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
                         RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
                         helloref.Play();
-
+                        rotating = true;
                         time = 15; // 15 seconds until fade to black
                         step++; // move on to the next part of this option
                                 //Fading();
 
                     }
+                }
+                if (rotating)
+                {
+                    RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
+                    RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
                 }
             }
 
