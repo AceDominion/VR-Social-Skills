@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 
 
-public class MenuButtonScripts : MonoBehaviour
+public class MenuButtons : MonoBehaviour
 {
     public static int Scenario; // Records the scenario we want to load into.
 

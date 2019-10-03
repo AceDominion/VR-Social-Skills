@@ -31,14 +31,14 @@ public class VRController : MonoBehaviour
         // On Start, we will set the player's position
         player = GameObject.Find("VRController");
 
-        if (MenuButtonScripts.Scenario == 1) // If the user hit load scene one (Scenario variable is modified in MenuButtonScripts.cs, it's a static variable).
+        if (MenuButtons.Scenario == 1) // If the user hit load scene one (Scenario variable is modified in MenuButtonScripts.cs, it's a static variable).
         {
             //set player transform to outside.
             player.transform.SetPositionAndRotation(new Vector3(1.2f, 6.3f, -45f), new Quaternion(0, 0, 0, 0));
             //possibly add more logic to restrict scenario steps
             
         }
-        else if (MenuButtonScripts.Scenario == 2) // If the user hit load scene two (Scenario variable is modified in MenuButtonScripts.cs, it's a static variable).
+        else if (MenuButtons.Scenario == 2) // If the user hit load scene two (Scenario variable is modified in MenuButtonScripts.cs, it's a static variable).
         {
             player.transform.SetPositionAndRotation(new Vector3(-9.2f, 6.3f, -8.59f), new Quaternion(0, 0, 0, 0));
         }

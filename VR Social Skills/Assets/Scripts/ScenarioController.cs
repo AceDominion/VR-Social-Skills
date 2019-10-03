@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using System.Linq;
 
-public class scenarioScript : MonoBehaviour
+public class ScenarioController : MonoBehaviour
 {
     public int option = 0; // for determining which option of the script is running
     public bool aware; // check for if the conversation has started
@@ -150,7 +150,7 @@ public class scenarioScript : MonoBehaviour
         if (aware == true)
         {
 
-            if (MenuButtonScripts.Scenario == 1)
+            if (MenuButtons.Scenario == 1)
             {
                 if (step == 0) // This is necessary to stop the below fragment running every frame.
                 {
@@ -175,7 +175,7 @@ public class scenarioScript : MonoBehaviour
             }
 
 
-            if (MenuButtonScripts.Scenario == 2) // first potential way things play out according to script
+            if (MenuButtons.Scenario == 2) // first potential way things play out according to script
             {
                 RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
                 RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
