@@ -19,7 +19,6 @@ public class VRController : MonoBehaviour
     private CharacterController m_CharacterController = null;
     private Transform m_CameraRig = null;
     private Transform m_Head = null;
-    private GameObject player = null;
 
     private void Awake()
     {
@@ -28,20 +27,6 @@ public class VRController : MonoBehaviour
 
     private void Start()
     {
-        // On Start, we will set the player's position
-        player = GameObject.Find("VRController");
-
-        if (MenuButtons.Scenario == 1) // If the user hit load scene one (Scenario variable is modified in MenuButtonScripts.cs, it's a static variable).
-        {
-            //set player transform to outside.
-            player.transform.SetPositionAndRotation(new Vector3(1.2f, 6.3f, -45f), new Quaternion(0, 0, 0, 0));
-            //possibly add more logic to restrict scenario steps
-            
-        }
-        else if (MenuButtons.Scenario == 2) // If the user hit load scene two (Scenario variable is modified in MenuButtonScripts.cs, it's a static variable).
-        {
-            player.transform.SetPositionAndRotation(new Vector3(-9.2f, 6.3f, -8.59f), new Quaternion(0, 0, 0, 0));
-        }
         m_CameraRig = SteamVR_Render.Top().origin;
         m_Head = SteamVR_Render.Top().head;
     }
