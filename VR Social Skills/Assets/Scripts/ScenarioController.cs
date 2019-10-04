@@ -148,8 +148,8 @@ public class ScenarioController : MonoBehaviour
 
             if(step == 1)
             {
-                if (response == true)
-                {
+                /**if (response == true) //I've commented this out because it seemed to be causing the actors to not respond to my initiate.
+                {**/
                     if ((words == "Hello" || words == "Hi" || words == "Hey") && InRange == true)
                     {
                         aware = true;
@@ -158,7 +158,7 @@ public class ScenarioController : MonoBehaviour
                         response = false;
                         step++;
                     }
-                }
+                /**}**/
             }
         }
 
