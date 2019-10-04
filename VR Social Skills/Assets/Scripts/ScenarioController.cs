@@ -5,18 +5,17 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 using System.Linq;
+using Valve.VR;
 
 public class ScenarioController : MonoBehaviour
 {
-    public int option = 0; // for determining which option of the script is running
     public bool aware; // check for if the conversation has started
     public bool response; // check for if the user is talking
     public float time = 0; // time until black out
-    public float talking = 0; // duration of user talking
-    public float leeway = 0; // saftey time given so user doesnt run out of time from breaks in continuous talking
     public string words; // what the user said
     public int step = 0; // what part of the script the conversation is up to
     public bool InRange;
+    public int Scenario = MenuButtons.Scenario;
     public GameObject Player;
     public GameObject Mia;
     public GameObject Tom;
@@ -26,7 +25,7 @@ public class ScenarioController : MonoBehaviour
     public AudioSource hruref; // Audio source reference.
     public AudioClip fine; // "im fine thanks"
     public AudioSource fineref;
-    public bool rotating;
+
 
     public Image black;
     public Animator anim;
@@ -43,7 +42,6 @@ public class ScenarioController : MonoBehaviour
         aware = false;
         response = false;
         InRange = false;
-        rotating = false;
         step = 0;
 
         helloref.clip = hello; // Sets the reference to refer to the clip.
@@ -52,10 +50,6 @@ public class ScenarioController : MonoBehaviour
 
         keywords.Add("Hello", () =>
         {
-            /*if (InRange == true)
-            {
-                aware = true;
-            }*/
             response = true;
             words = "Hello";
         });
@@ -134,96 +128,89 @@ public class ScenarioController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (leeway < 0) // while leeway is greater then 0, fade to black count down time wont tick
-        {
-            time -= Time.deltaTime; // fade to black time counting down
-        }
-
-        if (leeway > 0) // while leeway is greater then 0, talking time will increase until 20 at which point screen fades to black
-        {
-            talking += Time.deltaTime; // talking time counting up
-        }
-
-        leeway -= Time.deltaTime; // amount of pause between talking counting down
+        time -= Time.deltaTime; // fade to black time counting down
 
         if (aware == true)
         {
+            RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
+            RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
+        }
 
-            if (MenuButtons.Scenario == 1)
+        if (Scenario == 1)
+        {
+
+            if(step == 0)
             {
-                if (step == 0) // This is necessary to stop the below fragment running every frame.
-                {
-                    if (words == "Hello" || words == "Hi" || words == "Hey") // player needs to say one of these words progress
-                    {
-
-                        RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
-                        RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
-                        helloref.Play();
-                        rotating = true;
-                        time = 15; // 15 seconds until fade to black
-                        step++; // move on to the next part of this option
-                                //Fading();
-
-                    }
-                }
-                if (rotating)
-                {
-                    RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
-                    RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
-                }
+                Player.transform.position = new Vector3(0, 6, -50); // first scenario
+                time = 35;
+                step++;
             }
 
-
-            if (MenuButtons.Scenario == 2) // first potential way things play out according to script
+            if(step == 1)
             {
-                RotateTowards(Player.transform, Mia.transform, 1.0f); //turns characters to face player
-                RotateTowards(Player.transform, Tom.transform, 1.0f); //turns characters to face player
-
-                if (step == 0) // first thing that happens in the first script option
+                if (response == true)
                 {
-                    helloref.Play(); // Makes the audio source play, which refers to the hello clip.
-                    time = 15; // 15 seconds until fade to black
-                    step++; // move on to the next part of this option
-                }
-
-                if (response == true) // if player is speaking
-                {
-                    if (step == 1) // second thing that happens in first script option
+                    if ((words == "Hello" || words == "Hi" || words == "Hey") && InRange == true)
                     {
-                        if (words == "Hello" || words == "Hi" || words == "Hey") // player needs to say one of these words progress
-                        {
-                            hruref.Play(); // actor response: "how are you"
-                            response = false; // sets it so player has to speak again to begin next part
-                            time = 15; // 15 seconds until fade to black
-                            step++; // move on to the next part of this option
-                        }
+                        aware = true;
+                        helloref.Play();
+                        time = 3;
+                        response = false;
+                        step++;
                     }
-
-                    if (step == 2) // third thing that happens in the first script option
-                    {
-                        leeway = 1.5f; // amount of pause allowed for when the player has to continusly talk for 20 seconds
-                        if (words == "Good" || words == "Fine" || words == "Not bad" || words == "You" || words == "Yourself") // player needs to say one of these words progress
-                        {
-                            fineref.Play(); //actor response: "im fine thanks"
-                            response = false;
-                            time = 15;
-                            step++;
-                            // here we could also set a boolean "complete = true" and check for it in update(), then when true just end the scene.
-
-                        }
-                    }
-
                 }
-
-                if (time <=0 || talking >= 20) // if count down time reachs 0 or if the player has talked for 20 seconds
-                {
-                    Fading(); // fade to black
-                }
-
-                response = false; // sets it so player has to speak again in order to be considered talking
             }
         }
+
+        if (Scenario == 2)
+        {
+            if (step == 0)
+            {
+                Player.transform.position = new Vector3(-9, 6, -9); //second scenario
+                time = 20;
+                step++;
+            }
+
+            if (step == 1)
+            {
+                if(InRange == true)
+                {
+                    aware = true;
+                    helloref.Play();
+                    time = 15;
+                    step++;
+                }
+            }
+
+            if (step == 2)
+            {
+                if (words == "Hello" || words == "Hi" || words == "Hey")
+                {
+                    hruref.Play();
+                    time = 15;
+                    step++;
+                }
+            }
+
+            if (step == 3)
+            {
+                if (words == "Good" || words == "Fine" || words == "Not bad" || words == "You" || words == "Yourself")
+                {
+                    fineref.Play();
+                    time = 3;
+                    step++;
+                }
+            }
+        }
+
+        if (time <= 0) // if count down time reachs 0 or if the player has talked for 20 seconds
+        {
+
+            SteamVR_Fade.Start(Color.black, 1);
+            //Fading(); // fade to black
+        }
+
+        response = false; // sets it so player has to speak again in order to be considered talking
     }
 
     private void OnTriggerEnter(Collider Conbox)
@@ -231,8 +218,6 @@ public class ScenarioController : MonoBehaviour
         if (Conbox.tag == "Conbox")
         {
             InRange = true;
-            aware = true;
-            //moved this to when the player speaks, so that NPCs become "aware" only upon the player speaking.
         }
     }
 
