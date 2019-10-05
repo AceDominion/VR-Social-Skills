@@ -12,7 +12,6 @@ public class ScenarioController : MonoBehaviour
     public bool aware; // check for if the conversation has started
     public bool response; // check for if the user is talking
     public float time = 0; // time until black out
-    public float timeMenu = 0; //time until menu loads: separate timer so that fade to black can happen first
     public string words; // what the user said
     public int step = 0; // what part of the script the conversation is up to
     public bool InRange;
@@ -26,7 +25,7 @@ public class ScenarioController : MonoBehaviour
     public AudioSource hruref; // Audio source reference.
     public AudioClip fine; // "im fine thanks"
     public AudioSource fineref;
-    public bool x = true; // this is used to control timeMenu's activation
+    public bool x; // this is used to control timeMenu's activation
 
 
     public Image black;
@@ -44,6 +43,7 @@ public class ScenarioController : MonoBehaviour
         aware = false;
         response = false;
         InRange = false;
+        x = false;
         step = 0;
 
         helloref.clip = hello; // Sets the reference to refer to the clip.
@@ -131,7 +131,6 @@ public class ScenarioController : MonoBehaviour
     void Update()
     {
         time -= Time.deltaTime; // fade to black time counting down
-        timeMenu -= Time.deltaTime;
 
         if (aware == true)
         {
@@ -151,17 +150,14 @@ public class ScenarioController : MonoBehaviour
 
             if(step == 1)
             {
-                /**if (response == true) //I've commented this out because it seemed to be causing the actors to not respond to my initiate.
-                {**/
-                    if ((words == "Hello" || words == "Hi" || words == "Hey") && InRange == true)
-                    {
-                        aware = true;
-                        helloref.Play();
-                        time = 3;
-                        response = false;
-                        step++;
-                    }
-                /**}**/
+                if ((words == "Hello" || words == "Hi" || words == "Hey") && InRange == true)
+                {
+                    aware = true;
+                    helloref.Play();
+                    time = 3;
+                    response = false;
+                    step++;
+                }
             }
         }
 
@@ -207,27 +203,16 @@ public class ScenarioController : MonoBehaviour
         }
 
         
-        if (time <= 0) // if count down time reachs 0 or if the player has talked for 20 seconds
+        if (time <= 0) // if count down time reachs 0
         {
-
-            SteamVR_Fade.Start(Color.black, 1);
-
-            //x is set to true when initialised. check if true (it will be).
             if (x)
             {
-                timeMenu = 15;
-                x = false; //set to false to stop timeMenu = 15 from ever happening again.
+                SceneManager.LoadScene(0);
             }
-        }
 
-        timeMenu -= Time.deltaTime; // count down
-
-        if (!x) // x will now be false. check for false.
-        {
-            if (timeMenu <= 0) // wait until timeMenu < 0
-            {
-                SceneManager.LoadScene(0); // return to menu.
-            }
+            SteamVR_Fade.Start(Color.black, 1);
+            time = 4;
+            x = true;
         }
 
         response = false; // sets it so player has to speak again in order to be considered talking
