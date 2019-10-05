@@ -205,7 +205,7 @@ public class ScenarioController : MonoBehaviour
         
         if (time <= 0) // if count down time reachs 0
         {
-            if (x)
+            if (x) //doesnt do this the first time it runs through
             {
                 SceneManager.LoadScene(0);
             }
