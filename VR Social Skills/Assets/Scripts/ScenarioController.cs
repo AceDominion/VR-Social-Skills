@@ -15,7 +15,7 @@ public class ScenarioController : MonoBehaviour
     public string words; // what the user said
     public int step = 0; // what part of the script the conversation is up to
     public bool InRange;
-    public int Scenario = MenuButtons.Scenario;
+    public int Scenario;
     public GameObject Player;
     public GameObject Mia;
     public GameObject Tom;
@@ -40,6 +40,7 @@ public class ScenarioController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Scenario = MenuButtons.Scenario;
         aware = false;
         response = false;
         InRange = false;

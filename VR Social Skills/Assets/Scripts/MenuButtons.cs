@@ -12,14 +12,16 @@ public class MenuButtons : MonoBehaviour
 
     public void ToScenarioOne()
     {
-        SceneManager.LoadScene(1);
         Scenario = 1; // set scenario 1 as the scenario we are going to play. this will be checked in VRController.cs and possibly the scenario script
+        SceneManager.LoadScene(1);
+       
     }
 
     public void ToScenarioTwo()
     {
-        SceneManager.LoadScene(1);
         Scenario = 2; // set scenario 2 as the scenario we are going to play. this will be checked in VRController.cs and possibly the scenario script
+        SceneManager.LoadScene(1);
+       
     }
 
 
